@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ../backend  
+    container_name: lab_backend
+    volumes:
+      - ./data:/app/data
+    networks:
+      - app_network
+    ports:                  
+      - "5000:5000" 
+    restart: always
+
+  frontend:
+    build: ../frontend 
+    container_name: lab_frontend
+    ports:
+      - "8080:80"
+    networks:
+      - app_network
+    depends_on:
+      - backend
+    restart: always
+
+networks:
+  app_network:
+    driver: bridge
