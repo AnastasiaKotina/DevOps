@@ -1,0 +1,2 @@
+[remote_node]
+172.23.109.221 ansible_user=anastasia ansible_ssh_private_key_file=/home/anastasia/.ssh/ansible_rsa

@@ -1,0 +1,40 @@
+---
+- name: Include subtask for Docker installation
+  ansible.builtin.include_tasks: subtasks/subtask.yml
+  tags: install
+
+- name: Clone backend repository
+  ansible.builtin.git:
+    repo: "https://github.com/AnastasiaKotina/backend.git"
+    dest: "/home/anastasia/backend"
+    version: main
+    force: yes
+  tags: deploy
+
+- name: Clone frontend repository
+  ansible.builtin.git:
+    repo: "https://github.com/AnastasiaKotina/frontend.git"
+    dest: "/home/anastasia/frontend"
+    version: main
+    force: yes
+  tags: deploy
+
+- name: Clone DevOps repository
+  ansible.builtin.git:
+    repo: "https://github.com/AnastasiaKotina/DevOps.git"
+    dest: "/home/anastasia/DevOps"
+    version: main
+    force: yes
+  tags: deploy
+
+- name: Start microservices via docker compose
+  community.docker.docker_compose_v2:
+    project_src: /home/anastasia/DevOps
+    state: present
+  tags: start
+
+- name: Stop microservices via docker compose
+  community.docker.docker_compose_v2:
+    project_src: /home/anastasia/DevOps
+    state: absent
+  tags: stop

@@ -1,0 +1,6 @@
+---
+- name: Deploy microservices
+  hosts: remote_node
+  become: true
+  roles:
+    - role1
